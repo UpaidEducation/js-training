@@ -1,0 +1,14 @@
+<div class="main-page-zad1">
+    <h2>Welcome to your own color creator!</h2>
+    <form #tdForm = "ngForm" (ngSubmit)="submit(tdForm)">
+        <label>Color:</label>
+        <input name="userColor"
+               required type="text"
+               [(ngModel)]="userColor"
+               placeholder="enter color"/>
+        <button type="submit">Click</button>
+    </form>
+        <div id="firstContainer" class="container">
+            <h2 class="center">You did it!</h2>
+    </div>
+</div>
