@@ -1,0 +1,11 @@
+.container {
+    height: 171px;
+    width: 317px;
+    position: relative;
+    background-color: black;
+    border-radius: 17px;
+}
+
+.center {
+    text-align: center;
+}
