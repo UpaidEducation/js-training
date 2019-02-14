@@ -1,0 +1,22 @@
+body {
+  color: black;
+}
+
+.container {
+  position: relative;
+  margin: 10% auto;
+  width: 300px;
+  height: auto;
+
+  form {
+    input {
+      width: 200px;
+    }
+  }
+
+  .colorBox {
+    background-color: black;
+    width: 200px;
+    height: 200px;
+  }
+}
