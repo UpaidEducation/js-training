@@ -1,11 +1,9 @@
-body {
-  color: black;
-}
+@import "varibles";
 
 .container {
   position: relative;
   margin: 10% auto;
-  width: 300px;
+  width: $widthContainer;
   height: auto;
 
   form {
@@ -14,9 +12,12 @@ body {
     }
   }
 
-  .colorBox {
-    background-color: black;
-    width: 200px;
-    height: 200px;
+  #colorBox {
+    background-color: $boxColor;
+    width: $boxWidth;
+    height: $boxHeight;
+    pre {
+      padding: 50px;
+    }
   }
 }

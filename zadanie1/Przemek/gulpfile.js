@@ -10,9 +10,7 @@ gulp.task('reload', function() {
 });
 
 gulp.task('serve', ['sass'], function() {
-    browserSync({
-        server: ''
-    });
+    // browserSync({server: ''});
     gulp.watch('*.html', ['reload']);
     gulp.watch('scss/*.scss', ['sass']);
 });
@@ -22,15 +20,10 @@ gulp.task('sass', function(){
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('css'))
-        .pipe(browserSync.stream());
-});
-
-gulp.task('css', function(){
-    return gulp.src('css/*.css')
         .pipe(concat('style.css'))
         .pipe(cleanCSS())
-        .pipe(gulp.dest('dest/css'));
+        .pipe(gulp.dest('css'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('default', ['serve']);
