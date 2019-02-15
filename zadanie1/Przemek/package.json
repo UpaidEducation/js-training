@@ -18,5 +18,11 @@
     "gulp-sourcemaps": "^2.6.4",
     "browser-sync": "^2.24.4",
     "connect-browser-sync": "^2.1.0"
+<<<<<<< HEAD
+  },
+  "dependencies": {
+    "typescript": "^3.3.3"
+=======
+>>>>>>> e3457e31ce17be4f10157b254ec8e969028e25ee
   }
 }
