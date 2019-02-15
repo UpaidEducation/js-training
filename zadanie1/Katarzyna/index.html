@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>js training kmalec</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/css/uikit.min.css"/>
+</head>
+<body>
+<div class="uk-container uk-margin-large-top">
+    <div class="uk-child-width-1-3@s uk-grid" uk-grid>
+        <div>
+            <input id="app-input" class="uk-input" type="text">
+            <label id="app-warning" for="app-input" class="uk-text-small uk-text-danger" style="visibility: hidden;">Podaj kolor</label>
+        </div>
+        <div>
+            <button onclick="changeColor()" id="app-button" class="uk-button uk-button-primary">Change color</button>
+        </div>
+        <div id="app-container" class="uk-height-small" style="background-color:black;">
+            <p id="app-output"></p>
+        </div>
+    </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
