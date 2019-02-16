@@ -4,15 +4,23 @@
     margin: 15% auto;
 }
 #textBox {
+<<<<<<< HEAD
     position: relative;
     display: inline-block;
     overflow: hidden;
     border: solid 1px #000;
     width: 80px;
+=======
+    display: inline-block;
+    overflow: hidden;
+    border: solid 1px #000;
+    width: 200px;
+>>>>>>> 3e183b24fabb96e82407c7047dfe20389ec251a0
     height: 20px;
     padding: 0;
     margin: 0;
 }
+<<<<<<< HEAD
 #firstSpan {
     left: -80px;
 }
@@ -20,3 +28,8 @@
     position: absolute;
     width: 80px;
 }
+=======
+#textBox span {
+    position: relative;
+}
+>>>>>>> 3e183b24fabb96e82407c7047dfe20389ec251a0
