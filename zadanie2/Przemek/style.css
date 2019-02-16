@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    width: 350px;
+    margin: 15% auto;
+}
+#textBox {
+    display: inline-block;
+    overflow: hidden;
+    border: solid 1px #000;
+    width: 200px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#textBox span {
+    position: relative;
+}
