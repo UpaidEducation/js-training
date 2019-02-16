@@ -19,6 +19,7 @@ function addPosition(reference) {
         if (argument !== 0) {
             intervalId = setInterval(function() {
                 setPosition();
+
             }, 50);
         } else {
             clearInterval(intervalId);
