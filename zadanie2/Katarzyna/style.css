@@ -1,0 +1,41 @@
+.app-scroll {
+    width: 100px;
+    height: 25px;
+    background-color: black;
+    color: white;
+    position: relative;
+    text-align: center;
+}
+
+.app-scroll span {
+    position: absolute;
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+}
+
+.scroll-left {
+    animation: scroll-left 3s linear infinite;
+}
+
+.scroll-right {
+    animation: scroll-right 3s linear infinite;
+}
+
+@keyframes scroll-left {
+    0%   {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-200%);
+    }
+}
+
+@keyframes scroll-right {
+    0%   {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
