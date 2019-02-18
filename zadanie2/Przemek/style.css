@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    width: 350px;
+    margin: 15% auto;
+}
+#textBox {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: solid 1px #000;
+    width: 80px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#firstSpan {
+    left: -80px;
+}
+#textBox span {
+    position: absolute;
+    width: 80px;
+}
