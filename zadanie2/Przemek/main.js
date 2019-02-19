@@ -1,12 +1,12 @@
-var textBox = document.getElementById('textBox');
-var text = "sample text ";
-var array = text.split('');
 var intervalId;
-textBox.innerText = text;
+var textBox = document.getElementById('textBox');
+var array = textBox.innerText.split('');
+array.push('\xa0');
+array.join('');
 function changePosition(direction) {
     clearInterval(intervalId);
     intervalId = setInterval(function () {
-        array.push.apply(array, array.splice(0, direction ? text.length-1 : 1));
+        array.push.apply(array, array.splice(0, direction ? array.length-1 : 1));
         textBox.innerText = array.join('');
     }, 50);
 }
