@@ -17,3 +17,14 @@ Stworzyć kontener który zawiera w środku tekst np. 'sample text' i dwa przyci
 - User case:
 
 Po kliku w przycisk "w prawo" tekst ma animować się w prawo, po kliku w przycisk "w lewo" animacja ma zmieniać kierunek w lewo.
+
+# Zadanie 3
+
+> User story:
+
+Napisać funkcje która będzie sprawdzać czy podany rok jest rok przestępny w kalendarzu gregoriańskim.
+Na stronie powinien być text input(do wpisania roku) i kontener(który będzie zawierać odpowiedź z funkcji).
+
+- User case:
+
+Wpisujesz rok np. 2000, wychodzisz z inputu i w kontenerze ma pojawiać się odpowiedź czy wpisany rok jest przestępny.
