@@ -28,3 +28,16 @@ Na stronie powinien być text input(do wpisania roku) i kontener(który będzie 
 - User case:
 
 Wpisujesz rok np. 2000, wychodzisz z inputu i w kontenerze ma pojawiać się odpowiedź czy wpisany rok jest przestępny.
+
+# Zadanie 4
+
+> User story:
+
+Napisać funkcje która będzie odwracać podany string.
+Na stronie powinien być text input(do wpisania słowa) i przycisk po kliku na który będzie działać funckja.
+
+- User case:
+
+Wpisujesz słowo np. welcome, klikasz w przycisk i w inpucie ma pojawić się odwrócone słowo np. emoclew.
+
+Advanced*: Napisać funkcje która będzie zamieniać każdy symbol z stringu na następny według alfabetu np. python -> qzuipo.
