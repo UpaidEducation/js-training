@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    width: 254px;
+    margin: 15% auto;
+}
+form {
+    display: grid;
+}
