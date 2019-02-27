@@ -1,13 +1,13 @@
 var inputText = document.getElementById('content');
 
 function revers() {
-    var arrayTest = inputText.value.split('');
-    var lengthArr = arrayTest.length;
+    var arrayText = inputText.value.split('');
+    var lengthArr = arrayText.length;
     var reversArr = [lengthArr];
     var i=0;
 
     while (lengthArr--) {
-        reversArr[i++] = nextChar(arrayTest[lengthArr]);
+        reversArr[i++] = nextChar(arrayText[lengthArr]);
         if (lengthArr === 0) break;
     }
 
@@ -21,5 +21,9 @@ function isAlphabet(event) {
 }
 
 function nextChar(char) {
-    return String.fromCharCode((char === "z" ? 97 : char === "Z" ? 65 : char.charCodeAt(0)) + 1);
+    return String.fromCharCode(
+        char === "z" ? ("a").charCodeAt(0) :
+           char === "Z" ? ("A").charCodeAt(0) :
+               char.charCodeAt(0) + 1
+    );
 }
