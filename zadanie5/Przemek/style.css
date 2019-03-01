@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    width: 254px;
+    margin: 15% auto;
+}
+#sortString, #maxSum {
+    padding: 5px;
+    text-align: center;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+form {
+    display: grid;
+}
