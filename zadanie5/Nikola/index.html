@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet">
+    <title>Zadanie 5</title>
+</head>
+<body>
+<div class="center">
+    <h2>Zadanie 5</h2>
+</div>
+<div class="container">
+    <div>
+        <input type="number" min="0" id="dateInput" placeholder="Enter miliseconds">
+        <button onclick="convertDate()">Convert Date</button>
+        <div type="text" id="dateOutput"></div>
+    </div>
+    <div class="container">
+        <input onchange="toLower()" type="text" id="textInput" placeholder="Enter text to convert">
+        <button onclick="convertText()">Convert Text</button>
+        <div type="text" id="textOutput"></div>
+
+    </div>
+    <div class="container">
+        <input type="text" id="arrayElements" placeholder="Enter elements of array">
+        <input type="number" min="0" id="count" placeholder="count of elements ">
+        <button onclick="findMaxSum()">Find Max Sum</button>
+        <div type="text" id="sumOfElements"></div>
+
+    </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
