@@ -10,6 +10,13 @@
     border-right: 1px solid;
     border-bottom: 1px solid;
 }
+#sortString input,
+#maxSum input:nth-child(1) {
+    width: 110px;
+}
+#maxSum input:nth-child(2) {
+    width: 30px;
+}
 form {
     display: grid;
 }

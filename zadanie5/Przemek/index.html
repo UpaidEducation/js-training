@@ -10,14 +10,17 @@
 <body>
 <div class="container">
     <form>
-        <input type="text" name="date" id="date" value="12400000">
+        <input type="text" id="dateInput" value="12400000">
         <button type="button" onclick="timestampToDate()">Calculate The Date</button>
         <div id="sortString">
-            <span>python</span>:
+            <input type="text" id="sortInput" value="python">
+            <button type="button" onclick="sort()">Sort</button>
             <span></span>
         </div>
         <div id="maxSum">
-            <span>[1, 2, 3, -4,<strong> 5, -6, 7, 8</strong>, -9] of 4</span>:
+            <input type="text" id="maxSumInput" placeholder="1,2,3,-4,5,-6,7,8,-9" value="1,2,3,-4,5,-6,7,8,-9">
+            <input type="text" placeholder="4" id="nInput" value="4">
+            <button type="button" onclick="calc()">Calc</button>
             <span></span>
         </div>
     </form>
