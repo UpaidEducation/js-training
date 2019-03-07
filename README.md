@@ -57,3 +57,15 @@ Napisać 2 funkcje: 1 będzie konwertować podaną w inpucie liczbę(w milisekun
 Advanced*: Napisać funkcje dla znajdowania maxymalnej możliwej sumy N elementów tablicy(elementy dla sumy bierzemy według kolejności w tablicy). Jeżeli N(drugi argument funkcji) jest większe od iłości elementów w tablicy zwracamy "This operation can not be done".
 
 Example: findMaxPossibleSum([1, 2, 3, 14, 5], 2) -> 19(w tym przypadku n = 2)
+
+# Zadanie 6
+
+Napisać 3 funkcje: 1 ma znaleźć najkrótszy string, który dodająć znaki do końca podanego stringu utworzy palindrom; 2 która będzie liczyć sume na podstawie wzoru: n + n/2 + n/4 + n/8 + ... Gdzie n to jes liczba dodatnia i całkowita, dzielniki są liczbami całkowitymi i zwiększają się dwukrotnie w stosunku do poprzedniego. Wynikiem tych iloczynów ma być liczba całkowita; 3 ma sprawdzać czy podana macierz jest diagonalna.
+
+- User case:
+
+1. funkcja: abcddc -> abcddcba, 122 -> 1221
+2. funkcja: N = 8(8 + 8/2 + 8/4 + 8/8) -> 15, N = 26(26 + 26/2 + 26/4 + 26/8 + 26/16) -> 49
+3. funkcja: [[1, 0, 0], [0, 2, 0], [0, 0, 3]] -> true, [[1, 0, 0], [0, 2, 3], [0, 0, 3] ]) -> false
+
+Advanced*: Napisać prosty kalkulator.
