@@ -1,0 +1,15 @@
+.center {
+    text-align: center;
+    position: relative;
+}
+.container {
+    justify-content: center;
+    display: inline-block;
+}
+#textOutput {
+    height: 39px;
+    width: 247px;
+    background-color: hotpink;
+    border-radius: 17px;
+}
+
