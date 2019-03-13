@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    width: 254px;
+    margin: 10% auto;
+}
+form {
+    display: grid;
+}
+#isDiagonal {
+    padding: 5px;
+    text-align: center;
+}
