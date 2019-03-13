@@ -12,8 +12,30 @@
 <div class="container center">
         <input type="text" id="textInput" placeholder="Enter text">
         <button onclick="createPalindrom()">Create palindrom</button>
-        <div type="text" id="textOutput"></div>
-
+        <div type="text" id="textOutput" class="output"></div>
+</div>
+<div class="container center">
+        <input type="number" min = 0 id="nInput" placeholder="Enter N">
+        <button onclick="findSum()">Find sum</button>
+        <div type="text" id="sumOutput" class="output"></div>
+</div>
+<div class="container center">
+        <input type="text" id="matrixInput" placeholder="Enter matrix">
+        <button onclick="isDiagonal()">Check it</button>
+        <div type="text" id="matrixOutput" class="output"></div>
+</div>
+<div class="container center">
+    <input type="number" id="number1" placeholder="Enter first number">
+    <select>
+        <option value = "+">+</option>
+        <option value = "-">-</option>
+        <option value = "*">*</option>
+        <option value = "/">/</option>
+        <option value = "power">^</option>
+    </select>
+    <input type="number" id="number2" placeholder="Enter second number">
+    <button onclick="calculate()">Result</button>
+    <div type="text" id="calcOutput" class="output"></div>
 </div>
 <script src="main.js"></script>
 </body>

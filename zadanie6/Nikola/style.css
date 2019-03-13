@@ -4,9 +4,8 @@
 }
 .container {
     justify-content: center;
-    display: inline-block;
 }
-#textOutput {
+.output {
     height: 39px;
     width: 247px;
     background-color: hotpink;
