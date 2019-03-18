@@ -1,0 +1,167 @@
+body {
+    margin: 20px;
+    background: #333;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box {
+    margin: 40px auto 0;
+    max-width: 1000px;
+    border-radius: 4px;
+    border: 1px solid #599bfd;
+    background: #599bfd;
+}
+
+.header {
+    align-items: center;
+    color: white;
+    background: #599bfd;
+    height: 40px;
+    padding: 0 20px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.refresh {
+    user-select: none;
+    color: white;
+    background: rgb(126, 178, 255);
+    border: 0;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: filter .15s ease-out, opacity .2s ease-out;
+}
+
+.refresh:disabled {
+    transition: none;
+    cursor: default;
+    opacity: .5;
+}
+
+.refresh:not(:disabled):hover {
+    filter: brightness(110%);
+}
+
+.refresh:not(:disabled):active {
+    transition: none;
+    filter: brightness(95%);
+}
+
+.refresh:not(:disabled):focus {
+    outline: none;
+}
+
+.content {
+    padding: 20px;
+    overflow: hidden;
+}
+
+.main {
+    flex-flow: row wrap;
+    animation: appear .4s ease-out;
+}
+
+.time {
+    font-size: 12px;
+    animation: appear .4s ease-out;
+}
+
+.time > div:last-child {
+    opacity: .65;
+}
+
+.weather {
+    margin-top: 10px;
+    font-size: 46px;
+    margin-right: 20px;
+}
+
+.weather img {
+    margin-right: 10px;
+}
+
+.temp-info {
+    font-size: 18px;
+    white-space: pre;
+    text-transform: capitalize;
+}
+
+.details {
+    width: 200px;
+    margin-top: 10px;
+}
+
+.details-header {
+    font-weight: 600;
+    border-bottom: 2px solid #7eb2ff;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.details-list {
+    font-size: 12px;
+}
+
+.details-list .row + .row {
+    margin-top: 2px;
+    padding-top: 2px;
+    border-top: 1px solid #64a2ff;
+}
+
+.loading {
+    margin: 78px auto;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: white transparent white transparent;
+    animation: spin 1s linear infinite, appear .3s ease-out;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0)
+    } to {
+        transform: rotate(360deg)
+    }
+}
+
+@media (max-width: 350px) {
+    .weather {
+        font-size: 28px;
+    }
+
+    .weather img {
+        width: 80px;
+        height: 80px;
+    }
+}
