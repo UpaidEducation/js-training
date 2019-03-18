@@ -69,3 +69,10 @@ Napisać 3 funkcje: 1 ma znaleźć najkrótszy string, który dodająć znaki do
 3. funkcja: [[1, 0, 0], [0, 2, 0], [0, 0, 3]] -> true, [[1, 0, 0], [0, 2, 3], [0, 0, 3] ]) -> false
 
 Advanced*: Napisać prosty kalkulator.
+
+# Weather app
+
+- Step 1:
+
+Napisać funkcje dla pobrania aktualnej pogody w Londynie i pokazania tej informacji na stronie.
+Dla zrobienia tego zadania trzeba najpierw zarejestrować się pod tym <a href="https://home.openweathermap.org/users/sign_up">linkiem</a> żeby dostać APP KEY, który pozwoli zrobić request na https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid={YOUR_APP_KEY} używająć XMLHttpRequest albo fetch.
