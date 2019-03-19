@@ -3,10 +3,10 @@ var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London,uk&un
 var http = new XMLHttpRequest();
 
 http.onreadystatechange = function() {
-    if (http.readyState === XMLHttpRequest.DONE && http.status == 200)
-        setDataWeather(JSON.parse(http.responseText))
-    else if (http.readyState === XMLHttpRequest.DONE)
-        mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
+    if (http.readyState === XMLHttpRequest.DONE)
+        http.status == 200 ?
+            setDataWeather(JSON.parse(http.responseText)) :
+            mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
 };
 http.open('GET', weatherUrl);
 http.send();
