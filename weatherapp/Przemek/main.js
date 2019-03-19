@@ -15,6 +15,7 @@ function setDataWeather(data) {
     let clone;
     const element = document.createElement('p');
     const dataItem = {
+        "Weather in:"  : data.name,
         "" : '<img src="http://openweathermap.org/img/w/'+ data.weather[0].icon +'.png"/>',
         "Weather:"     : data.weather[0].description,
         "Temperature:" : data.main.temp + '°C',
@@ -24,11 +25,13 @@ function setDataWeather(data) {
         "Wind speed:"  : data.wind.speed + ' km/h'
     };
 
-    mainBox.children[0].lastChild.innerText = data.name;
-
-    Object.keys(dataItem).forEach(function(key) {
-        clone = element.cloneNode();
-        clone.innerHTML = key +' <span>'+ dataItem[key] +'</span>';
-        mainBox.appendChild(clone);
+    Object.keys(dataItem).forEach(function(key, index) {
+        if (index === 0)
+            mainBox.innerHTML = '<h1>'+ key +' <span>'+ dataItem[key] +'</span></h1>';
+        else {
+            clone = element.cloneNode();
+            clone.innerHTML = key +' <span>'+ dataItem[key] +'</span>';
+            mainBox.appendChild(clone);
+        }
     });
 }
