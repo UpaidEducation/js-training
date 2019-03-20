@@ -1,0 +1,22 @@
+body {
+    background-color: #d3d2dc;
+}
+.container {
+    display: block;
+    width: 280px;
+    margin: 10% auto;
+}
+.container h1,
+.container p {
+    margin: 2px;
+}
+.container h1 {
+    padding: 5px 0px;
+    font-size: large;
+}
+.container h4 {
+    color: crimson;
+}
+.container span {
+    color: darkblue;
+}
