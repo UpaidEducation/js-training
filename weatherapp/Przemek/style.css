@@ -3,7 +3,7 @@ body {
 }
 .container {
     display: block;
-    width: 280px;
+    width: 100%;
     margin: 10% auto;
 }
 .container h1,
@@ -19,4 +19,7 @@ body {
 }
 .container span {
     color: darkblue;
+}
+.daily {
+    display: inline;
 }

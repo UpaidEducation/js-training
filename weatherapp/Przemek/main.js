@@ -1,5 +1,6 @@
 const mainBox = document.getElementById("mainBox");
-const weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London,uk&units=metric&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
+const weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
+
 const http = new XMLHttpRequest();
 
 http.onreadystatechange = function() {
@@ -11,27 +12,27 @@ http.onreadystatechange = function() {
 http.open('GET', weatherUrl);
 http.send();
 
-function setDataWeather(data) {
-    let clone;
-    const element = document.createElement('p');
-    const dataItem = {
-        "Weather in "  : data.name,
-        ""             : '<img src="http://openweathermap.org/img/w/'+ data.weather[0].icon +'.png"/>',
-        "Weather:"     : data.weather[0].description,
-        "Temperature:" : data.main.temp + '°C',
-        "Humidity:"    : data.main.humidity + '%',
-        "Pressure:"    : data.main.pressure + ' hPa',
-        "Visibility:"  : data.visibility / 1000 + ' km',
-        "Wind speed:"  : data.wind.speed + ' km/h'
-    };
+let midnightDate = unixtime => unixtime - unixtime % 86400;
 
-    Object.keys(dataItem).forEach(function(key, index) {
-        if (index === 0)
-            mainBox.innerHTML = `<h1>${key} ${dataItem[key]}</h1>`;
-        else {
-            clone = element.cloneNode();
-            clone.innerHTML = `${key} <span>${dataItem[key]}</span>`;
-            mainBox.appendChild(clone);
-        }
-    });
+function setDataWeather(data) {
+
+    for (const [index, item] of data.list.entries()) {
+        if (data.list[+index+1] !== undefined)
+            renderTable(item,midnightDate(item.dt) !== midnightDate(data.list[+index+1].dt));
+    }
+}
+
+let clone;
+const element = document.createElement('div');
+
+function renderTable(data, breakLine) {
+
+    console.log(data, breakLine);
+
+    clone = element.cloneNode();
+    const classes = breakLine ? ["daily", "break"] : ["daily"];
+    clone.classList.add(...classes);
+    clone.innerHTML = data.dt_txt;
+
+        mainBox.appendChild(clone);
 }
