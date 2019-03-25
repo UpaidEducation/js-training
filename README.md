@@ -80,4 +80,4 @@ Dla zrobienia tego zadania trzeba najpierw zarejestrować się pod tym <a href="
 - Step 2:
 
 Dodać input i button dla przekazania wpisanego w inpucie miasta do requestu, który pobiera aktualną pogodę.
-Napisać funkcje dla pobrania zmian pogody na tydzień(7 dni) w podanym mieście i wyświetlić według czasowych zmian pogody. Przykład będzie dołączony do repo.
+Napisać funkcje dla pobrania zmian pogody na 5 dni w podanym mieście i wyświetlić według czasowych zmian pogody. Przykład będzie dołączony do repo.
