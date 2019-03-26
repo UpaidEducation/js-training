@@ -1,38 +1,58 @@
 const mainBox = document.getElementById("mainBox");
-const weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=London,uk&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
+const button = document.getElementById('button');
+const city = document.getElementById('city');
+const element = document.createElement('div');
+const distance = document.createElement('div');
 
-const http = new XMLHttpRequest();
-
-http.onreadystatechange = function() {
-    if (http.readyState === XMLHttpRequest.DONE)
-        if (http.status == 200)
-            setDataWeather(JSON.parse(http.responseText));
-        else mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
-};
-http.open('GET', weatherUrl);
-http.send();
-
+let clone;
+let cloneBox;
 let midnightDate = unixtime => unixtime - unixtime % 86400;
 
-function setDataWeather(data) {
+if(button)
+   button.addEventListener('click', getWeather);
 
+function getWeather() {
+    const weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='+ city.value +',pl&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
+    const http = new XMLHttpRequest();
+    mainBox.innerHTML="";
+    http.onreadystatechange = function() {
+        if (http.readyState === XMLHttpRequest.DONE)
+            if (http.status == 200)
+                setDataWeather(JSON.parse(http.responseText));
+            else mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
+    };
+    http.open('GET', weatherUrl);
+    http.send();
+}
+
+function setDataWeather(data) {
+    console.log(data);
     for (const [index, item] of data.list.entries()) {
         if (data.list[+index+1] !== undefined)
-            renderTable(item,midnightDate(item.dt) !== midnightDate(data.list[+index+1].dt));
+            renderTable(index, item, data.city, midnightDate(item.dt) !== midnightDate(data.list[+index+1].dt));
     }
 }
 
-let clone;
-const element = document.createElement('div');
-
-function renderTable(data, breakLine) {
-
-    console.log(data, breakLine);
-
+function renderTable(index, list, city, breakLine) {
     clone = element.cloneNode();
-    const classes = breakLine ? ["daily", "break"] : ["daily"];
-    clone.classList.add(...classes);
-    clone.innerHTML = data.dt_txt;
+    clone.classList.add(...breakLine ? ["daily","last"] : ["daily"]);
+    clone.innerHTML = createTimeOfDay(list, city);
 
-        mainBox.appendChild(clone);
+    mainBox.appendChild(clone);
+
+    if (index && breakLine) {
+        cloneBox = distance.cloneNode();
+        cloneBox.classList.add("distance");
+        mainBox.appendChild(cloneBox);
+    }
+}
+
+let createTimeOfDay = (data, city) => {
+    return `<h4>${data.dt_txt}</h4>
+     <img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png"/>
+     <p>${city.name}</p>
+     <p>${city.country}</p>
+     <p>${data.main.temp}</p>
+     <p>${data.weather[0].description}</p>
+     <p>${data.wind.speed}</p>`;
 }

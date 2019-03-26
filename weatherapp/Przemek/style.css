@@ -1,25 +1,27 @@
 body {
-    background-color: #d3d2dc;
+    background-color: #5f0000;
 }
 .container {
     display: block;
-    width: 100%;
-    margin: 10% auto;
-}
-.container h1,
-.container p {
-    margin: 2px;
-}
-.container h1 {
-    padding: 5px 0px;
-    font-size: large;
+    width: 80%;
+    margin: 12px auto;
+    font-size: small;
+    line-height: 5px;
 }
 .container h4 {
-    color: crimson;
-}
-.container span {
-    color: darkblue;
+    color: #8c0000;
 }
 .daily {
-    display: inline;
+    display: inline-block;
+    padding: 5px;
+    background-color: seashell;
+    border-top: solid 1px #fddbbf;
+    border-left: solid 1px #fddbbf;
+    border-bottom: solid 1px #fddbbf;
+}
+.last {
+    border-right: solid 1px #fddbbf;
+}
+.distance {
+    height: 40px;
 }
