@@ -1,5 +1,7 @@
 body {
-    background-color: #5f0000;
+    background-color: #dee3e6;
+    font-family: sans-serif;
+    color: #5a5a5a;
 }
 .container {
     display: block;
@@ -8,8 +10,20 @@ body {
     font-size: small;
     line-height: 5px;
 }
-.container h4 {
-    color: #8c0000;
+.container .form-group {
+    text-align: center;
+    margin: 20px auto 30px;
+}
+.container .form-group form {
+    display: inline-grid;
+}
+.container .form-group form input {
+    background-color: #f1f3fb;
+    padding: 5px;
+    border: solid 1px #83848e;
+}
+.container .form-group form button {
+    background-color: lightgrey;
 }
 .daily {
     display: inline-block;
@@ -22,6 +36,15 @@ body {
 .last {
     border-right: solid 1px #fddbbf;
 }
-.distance {
-    height: 40px;
+#header {text-align: center;
+    margin: 10px auto 50px;
+}
+.header-day {
+    margin: 25px auto 0;
+}
+.header-day h1 {
+    border: solid 1px #000;
+}
+footer {
+    height: 100px;
 }
