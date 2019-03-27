@@ -1,13 +1,31 @@
+const boxEl = document.querySelector('.box');
 const contentEl = document.querySelector('.content');
-const titleEl = document.querySelector('.title');
-const refreshBtn = document.querySelector('.refresh');
-refreshBtn.addEventListener('click', getWeather);
+const searchIconEl = document.querySelector('.search-icon');
+const searchEl = document.querySelector('.search');
+const formEl = document.querySelector('form');
+
+const switches = {
+    weather: document.querySelector('.weather-switch'),
+    forecast: document.querySelector('.forecast-switch')
+};
+
+switches.weather.addEventListener('click', switchMode);
+switches.forecast.addEventListener('click', switchMode);
+
+searchEl.addEventListener('input', function () {
+    !this.value ? searchIconEl.classList.remove('has-value') : searchIconEl.classList.add('has-value')
+});
+searchIconEl.addEventListener('click', () => searchEl.focus());
+
+formEl.addEventListener('submit', submit);
 
 // Switches
+let isLoading = false;
 let timeAgoInterval = null;
-let refreshAvailable = true;
+let currentLocation = '';
+let currentMode = 'weather';
 
-// Setup
+// Constants
 const apiKey = 'd99ce618511b0aa211ac10233d7bc46e';
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -22,19 +40,29 @@ const details = [
 ];
 
 // Core
-function getWeather() {
-    if (refreshAvailable) {
-        titleEl.innerText = 'Weather App';
-        onLoading();
+function submit(event) {
+    event.preventDefault();
+    get();
+}
 
-        setTimeout(() => {
-            fetch(`https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${apiKey}`)
-                .then(handleBody)
-                .then(onSuccess)
-                .catch(onError)
-                .finally(onDone);
-        }, 400);
-    }
+function get() {
+    if (isLoading || (!searchEl.value && !currentLocation)) return;
+    handleLoading();
+
+    fetch(`https://api.openweathermap.org/data/2.5/${currentMode}?q=${searchEl.value || currentLocation}&appid=${apiKey}`)
+        .then(handleBody)
+        .then(currentMode === 'weather' ? handleWeatherSuccess : handleForecastSuccess)
+        .catch(handleError)
+        .finally(handleDone);
+}
+
+function switchMode() {
+    if (isLoading) return;
+    const mode = this.innerText.toLowerCase();
+    switches[mode].disabled = true;
+    switches[currentMode].disabled = false;
+    currentMode = mode;
+    if (searchEl.value || currentLocation) get();
 }
 
 // Handlers
@@ -44,14 +72,16 @@ async function handleBody(body) {
     return data;
 }
 
-function onLoading() {
+function handleLoading() {
+    isLoading = true;
+
     if (timeAgoInterval) {
         clearInterval(timeAgoInterval);
         timeAgoInterval = null;
     }
 
-    refreshAvailable = false;
-    refreshBtn.disabled = true;
+    searchIconEl.classList.add('disabled');
+    searchEl.disabled = true;
 
     contentEl.innerHTML = '';
     const loadingIndicator = document.createElement('div');
@@ -59,30 +89,74 @@ function onLoading() {
     contentEl.appendChild(loadingIndicator);
 }
 
-function onSuccess(data) {
+function handleWeatherSuccess(data) {
+    currentLocation = data.name;
     contentEl.innerHTML = '';
-    titleEl.innerText = `Weather for ${data.name}, ${data.sys.country}`;
 
     const mainEl = document.createElement('div');
-    mainEl.classList.add('main', 'row');
+    mainEl.classList.add('main-weather', 'row');
 
+    const titleEl = createTitleElement(data.name, data.sys.country);
     const weatherEl = createWeatherElement(data);
     const detailsEl = createDetailsElement(data);
     const timeEl = createTimeElement(data);
 
     mainEl.append(weatherEl, detailsEl);
-    contentEl.append(timeEl, mainEl);
+
+    contentEl.append(titleEl, timeEl, mainEl);
 }
 
-function onError(err) {
+function handleForecastSuccess(data) {
+    currentLocation = data.city.name;
+    contentEl.innerHTML = '';
+
+    const mainEl = document.createElement('div');
+    mainEl.classList.add('main-forecast', 'column');
+
+    const titleEl = createTitleElement(data.city.name, data.city.country);
+
+    const list = data.list.map(({ main, weather, dt, wind }) => {
+        return { main, weather: weather[0], date: new Date(dt * 1000), wind }
+    });
+
+    let currentDay = list[0].date;
+    createForecastListHeader(currentDay, mainEl);
+    list.forEach(item => {
+        if (!sameDay(currentDay, item.date)) {
+            currentDay = item.date;
+            createForecastListHeader(currentDay, mainEl);
+        }
+
+        const itemEl = document.createElement('div');
+        itemEl.classList.add('forecast-list-item');
+
+        const timeEl = document.createElement('div');
+        timeEl.classList.add('forecast-time');
+        timeEl.innerText = getTime(item.date);
+
+        const iconEl = createIconElement(item.weather.icon);
+        const tempEl = createForecastTemperatureElement(item);
+        const infoEl = createForecastInfoElement(item);
+
+        itemEl.append(timeEl, iconEl, tempEl, infoEl);
+
+        mainEl.appendChild(itemEl);
+    });
+
+    contentEl.append(titleEl, mainEl);
+
+}
+
+function handleError(err) {
+    currentLocation = '';
     contentEl.innerText = err.message || 'Something went wrong.';
 }
 
-function onDone() {
-    setTimeout(() => {
-        refreshAvailable = true;
-        refreshBtn.disabled = false;
-    }, 3000);
+function handleDone() {
+    isLoading = false;
+    searchEl.value = '';
+    searchIconEl.classList.remove('has-value', 'disabled');
+    searchEl.disabled = false;
 }
 
 // Builders
@@ -113,9 +187,7 @@ function createWeatherElement(data) {
     const weatherEl = document.createElement('div');
     weatherEl.classList.add('weather', 'row');
 
-    const icon = document.createElement('img');
-    icon.src = `https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${data.weather[0].icon}.png`;
-    icon.draggable = false;
+    const icon = createIconElement(data.weather[0].icon);
 
     const text = document.createElement('div');
 
@@ -169,7 +241,77 @@ function createDetailsElement(data) {
     return detailsEl;
 }
 
+function createTitleElement(city, country) {
+    const titleEl = document.createElement('h2');
+    titleEl.classList.add('title');
+    titleEl.innerText = `${currentMode.slice(0, 1).toUpperCase() + currentMode.slice(1)} for ${city}, ${country}`;
+    return titleEl;
+}
+
+function createIconElement(icon) {
+    const iconEl = document.createElement('img');
+    iconEl.src = `https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${icon}.png`;
+    iconEl.draggable = false;
+    return iconEl;
+}
+
+function createForecastListHeader(date, appendTo) {
+    const headerEl = document.createElement('div');
+    headerEl.classList.add('forecast-list-item', 'forecast-list-header');
+    headerEl.innerText = `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
+    if (!!appendTo) appendTo.appendChild(headerEl);
+    return headerEl;
+}
+
+function createForecastTemperatureElement(forecast) {
+    const wrapperEl = document.createElement('div');
+    wrapperEl.classList.add('forecast-temp');
+
+    const tempEl = document.createElement('div');
+    tempEl.innerText = `${kelvinToCelsius(forecast.main.temp)}°C`;
+
+    const descEl = document.createElement('div');
+    descEl.classList.add('forecast-description');
+    descEl.innerText = forecast.weather.description;
+
+    wrapperEl.append(tempEl, descEl);
+
+    return wrapperEl;
+}
+
+function createForecastInfoElement(forecast) {
+    const infoEl = document.createElement('div');
+    infoEl.classList.add('forecast-info');
+
+    const firstRow = document.createElement('div');
+    const secondRow = document.createElement('div');
+
+    const humidityEl = document.createElement('div');
+    humidityEl.classList.add('forecast-humidity');
+    humidityEl.innerText = `${forecast.main.humidity}% humidity`;
+
+    const windEl = document.createElement('div');
+    windEl.classList.add('forecast-wind');
+    windEl.innerText = `${forecast.wind.speed} m/s,`;
+
+    const pressureEl = document.createElement('div');
+    pressureEl.classList.add('forecast-pressure');
+    pressureEl.innerText = `${forecast.main.pressure} hPa`;
+
+    firstRow.append(humidityEl);
+    secondRow.append(windEl, pressureEl);
+
+    infoEl.append(firstRow, secondRow);
+    return infoEl;
+}
+
 // Utils
+function sameDay(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate();
+}
+
 function getTime(date) {
     return `${trailingZero(date.getHours())}:${trailingZero(date.getMinutes())}`;
 }
@@ -206,4 +348,6 @@ function trailingZero(number) {
 }
 
 // Init
-getWeather();
+searchEl.value = 'London';
+searchIconEl.classList.add('has-value');
+get();
