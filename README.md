@@ -76,3 +76,8 @@ Advanced*: Napisać prosty kalkulator.
 
 Napisać funkcje dla pobrania aktualnej pogody w Londynie i pokazania tej informacji na stronie.
 Dla zrobienia tego zadania trzeba najpierw zarejestrować się pod tym <a href="https://home.openweathermap.org/users/sign_up">linkiem</a> żeby dostać APP KEY, który pozwoli zrobić request na https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid={YOUR_APP_KEY} używająć XMLHttpRequest albo fetch.
+
+- Step 2:
+
+Dodać input i button dla przekazania wpisanego w inpucie miasta do requestu, który pobiera aktualną pogodę.
+Napisać funkcje dla pobrania zmian pogody na 5 dni w podanym mieście i wyświetlić według czasowych zmian pogody. Przykład będzie dołączony do repo.

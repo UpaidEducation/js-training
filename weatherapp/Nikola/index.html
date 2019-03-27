@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet">
+    <title>Weather</title>
+</head>
+<body>
+<div class="center">
+    <h2>Check weather in your city</h2>
+</div>
+
+<div class="container">
+    <input type="text" id="place" placeholder="Enter city">
+    <button onclick="selectPlace()">Submit</button>
+</div>
+<div class="container center">
+    <h2 id = "weatherFor">Weather for </h2>
+    <h4>Coordinates: </h4>
+    <table>
+        <div id="weather"></div>
+        <tr>
+            <th>Humidity</th>
+            <th>Pressure</th>
+            <th colspan="2">Temperature</th>
+            <th colspan="2">Wind</th>
+            <th>Clouds</th>
+        </tr>
+        <tr class="dataOfWeather">
+            <td rowspan="3"></td>
+            <td rowspan="3"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td rowspan="3"></td>
+        </tr>
+        <tr>
+            <th>min</th>
+            <th>max</th>
+            <th>deg</th>
+            <th>speed</th>
+        </tr>
+        <tr class="dataOfWeather">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+</div>
+<h3>All information: </h3>
+<div id = "allInformation"></div>
+<script src="main.js"></script>
+</body>
+</html>
