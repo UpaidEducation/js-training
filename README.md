@@ -81,3 +81,7 @@ Dla zrobienia tego zadania trzeba najpierw zarejestrować się pod tym <a href="
 
 Dodać input i button dla przekazania wpisanego w inpucie miasta do requestu, który pobiera aktualną pogodę.
 Napisać funkcje dla pobrania zmian pogody na 5 dni w podanym mieście i wyświetlić według czasowych zmian pogody. Przykład będzie dołączony do repo.
+
+- Step 3:
+
+Stworzyć wykres pogody w podanym mieście na 5 dni używając biblioteki <a href="https://www.highcharts.com/">highcharts</a>. Przykład będzie dołaczony do repo.
