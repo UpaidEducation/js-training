@@ -8,9 +8,19 @@
 <body>
     <div class="container">
         <div class="form-group">
-            <form>
-                <input type="text" name="Miasto" id="city" placeholder="Enter The City">
-                <button type="button" id="button">Search</button>
+            <form name="form">
+                <div>
+                    <input type="text" name="Miasto" id="city" placeholder="Enter The City">
+                    <button type="button" id="button">Search</button>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="radios" value="weather" checked>dayly
+                    </label>
+                    <label>
+                        <input type="radio" name="radios" value="forecast">week
+                    </label>
+                </div>
             </form>
         </div>
         <div id="header"></div>

@@ -4,6 +4,7 @@ const button = document.getElementById('button');
 const city = document.getElementById('city');
 const element = document.createElement('div');
 const headerDay = document.createElement('div');
+const radios = document.form.radios;
 
 let alt = false;
 let clone;
@@ -11,10 +12,18 @@ let cloneBox;
 let midnightDate = unixtime => unixtime - unixtime % 86400;
 
 if(button)
-   button.addEventListener('click', getWeather);
+    button.addEventListener('click', function () {
+       getWeather(radios.value);
+    }, false);
 
-function getWeather() {
-    const weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='+ city.value +'&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
+for (radio of radios) {
+    radio.addEventListener('change', function() {
+        getWeather(this.value);
+    }, false);
+}
+
+function getWeather(radioValue) {
+    const weatherUrl = 'https://api.openweathermap.org/data/2.5/'+ radioValue +'?q='+ city.value +'&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
     const http = new XMLHttpRequest();
     mainBox.innerHTML="";
     http.onreadystatechange = function() {
@@ -37,7 +46,8 @@ function setDataWeather(data) {
 
 function renderTable(index, list, breakLine) {
     clone = element.cloneNode();
-    clone.classList.add(...breakLine ? ["daily","last"] : ["daily"]);
+    clone.classList.add.apply(clone.classList, breakLine ? ["daily","last"] : ["daily"]);
+    //clone.classList.add(...breakLine ? ["daily","last"] : ["daily"]);
     clone.innerHTML = createTimeOfDay(list);
     if ( !index || alt) {
         cloneBox = headerDay.cloneNode();
