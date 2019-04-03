@@ -11,7 +11,7 @@ let clone;
 let cloneBox;
 let midnightDate = unixtime => unixtime - unixtime % 86400;
 
-if(button)
+if (button)
     button.addEventListener('click', function () {
        getWeather(radios.value);
     }, false);
@@ -28,26 +28,46 @@ function getWeather(radioValue) {
     mainBox.innerHTML="";
     http.onreadystatechange = function() {
         if (http.readyState === XMLHttpRequest.DONE)
-            if (http.status == 200)
-                setDataWeather(JSON.parse(http.responseText));
-            else mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
+            if (http.status == 200) {
+                renders[radioValue](JSON.parse(http.responseText));
+            } else mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
     };
     http.open('GET', weatherUrl);
     http.send();
 }
 
-function setDataWeather(data) {
-    header.innerHTML = `<h1>Hourtly weather and forecasts in ${data.city.name}, ${data.city.country}</h1>`;
-    for (const [index, item] of data.list.entries()) {
-        if (data.list[+index+1] !== undefined)
-            renderTable(index, item, midnightDate(item.dt) !== midnightDate(data.list[+index+1].dt));
+const renders = {
+    weather: function (data) {
+        header.innerHTML = `<h1>Today's weather in ${data.name}, ${data.country}</h1>`;
+        renderDailyTable(data);
+    },
+    forecast: function (data) {
+        header.innerHTML = `<h1>Forecasts weather in ${data.city.name}, ${data.city.country}</h1>`;
+        for (const [index, item] of data.list.entries()) {
+            if (data.list[+index+1] !== undefined)
+                renderWeekTable(index, item, midnightDate(item.dt) !== midnightDate(data.list[+index+1].dt));
+        }
     }
+};
+
+function renderDailyTable(data) {
+    mainBox.innerHTML =
+        `<div class="daily-weather">
+         <h1>Weather in ${data.name}</h1>
+         <p><img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png"/></p>
+         <p>Weather: ${data.weather[0].description}</p>
+         <p>Temperature: ${data.main.temp}°C</p>
+         <p>Humidity: ${data.main.humidity}%</p>
+         <p>Pressure: ${data.main.pressure} hPa</p>
+         <p>Visibility: ${data.visibility / 1000} km</p>
+         <p>Wind speed: ${data.wind.speed} km/h</p>
+        </div>`;
 }
 
-function renderTable(index, list, breakLine) {
+function renderWeekTable(index, list, breakLine) {
+    const is21pm = +list.dt_txt.split(" ")[1].slice(0,2) === 21;
     clone = element.cloneNode();
-    clone.classList.add.apply(clone.classList, breakLine ? ["daily","last"] : ["daily"]);
-    //clone.classList.add(...breakLine ? ["daily","last"] : ["daily"]);
+    clone.classList.add(...breakLine ? ["daily","last"] : ["daily"]);
     clone.innerHTML = createTimeOfDay(list);
     if ( !index || alt) {
         cloneBox = headerDay.cloneNode();
@@ -55,7 +75,7 @@ function renderTable(index, list, breakLine) {
         cloneBox.innerHTML = createHeaderOfDay(list);
         mainBox.appendChild(cloneBox);
     }
-    alt = index && breakLine ? true : false;
+    alt = index && breakLine || is21pm;
     mainBox.appendChild(clone);
 }
 

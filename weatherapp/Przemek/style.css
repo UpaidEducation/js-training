@@ -39,11 +39,23 @@ body {
 #header {text-align: center;
     margin: 10px auto 50px;
 }
+#mainBox {
+    width: 100%;
+}
 .header-day {
     margin: 25px auto 0;
 }
 .header-day h1 {
     border: solid 1px #000;
+}
+.daily-weather {
+    margin: 0 auto;
+    padding: 5px;
+    width: 300px;
+    background-color: seashell;
+    border-top: solid 1px #fddbbf;
+    border-left: solid 1px #fddbbf;
+    border-bottom: solid 1px #fddbbf;
 }
 footer {
     height: 100px;
