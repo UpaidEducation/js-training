@@ -23,13 +23,13 @@ for (radio of radios) {
 }
 
 function getWeather(radioValue) {
-    const weatherUrl = 'https://api.openweathermap.org/data/2.5/'+ radioValue +'?q='+ city.value +'&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
+    const weatherUrl = 'https://api.openweathermap.org/data/2.5/'+ renders[radioValue].method +'?q='+ city.value +'&units=metric&cnt=40&appid=bb97b3f43e59cd2ba46ca6ccf5cbad37';
     const http = new XMLHttpRequest();
     mainBox.innerHTML="";
     http.onreadystatechange = function() {
         if (http.readyState === XMLHttpRequest.DONE)
             if (http.status == 200) {
-                renders[radioValue](JSON.parse(http.responseText));
+                renders[radioValue].fn(JSON.parse(http.responseText));
             } else mainBox.innerHTML = '<h4>'+ JSON.parse(http.responseText).message +'</h4>';
     };
     http.open('GET', weatherUrl);
@@ -37,16 +37,36 @@ function getWeather(radioValue) {
 }
 
 const renders = {
-    weather: function (data) {
-        header.innerHTML = `<h1>Today's weather in ${data.name}, ${data.country}</h1>`;
-        renderDailyTable(data);
+    weather: {
+        fn: function (data) {
+            header.innerHTML = `<h1>Today's weather in ${data.name}, ${data.country}</h1>`;
+            renderDailyTable(data);
+        },
+        method: "weather"
     },
-    forecast: function (data) {
-        header.innerHTML = `<h1>Forecasts weather in ${data.city.name}, ${data.city.country}</h1>`;
-        for (const [index, item] of data.list.entries()) {
-            if (data.list[+index+1] !== undefined)
-                renderWeekTable(index, item, midnightDate(item.dt) !== midnightDate(data.list[+index+1].dt));
-        }
+    forecast: {
+        fn: function (data) {
+            header.innerHTML = `<h1>Forecasts weather in ${data.city.name}, ${data.city.country}</h1>`;
+            for (const [index, item] of data.list.entries()) {
+                if (data.list[+index + 1] !== undefined) {
+                    renderWeekTable(index, item, midnightDate(item.dt) !== midnightDate(data.list[+index + 1].dt));
+                }
+            }
+        },
+        method: "forecast"
+    },
+    diagram: {
+        fn: function (data) {
+            let arr = [], i=0;
+            for (const [index, item] of data.list.entries()) {
+                if (data.list[+index + 1] !== undefined)
+                if (!index || midnightDate(item.dt) !== midnightDate(data.list[+index + 1].dt))
+                    arr[i++] = [parseInt(item.dt+'000'), item.main.temp];
+            }
+            mainBox.innerHTML=`<div id="diagriam" style="min-width: 310px; height: 400px; margin: 0 auto"></div>`;
+            setHighcharts(arr);
+        },
+        method: "forecast"
     }
 };
 
@@ -92,4 +112,43 @@ let createTimeOfDay = data => {
 
 let createHeaderOfDay = data => {
     return `<h2>${data.dt_txt.split(" ")[0]}</h2>`;
+}
+
+function setHighcharts(averages) {
+    Highcharts.chart('diagram', {
+
+        title: {
+            text: 'July temperatures'
+        },
+
+        xAxis: {
+            type: 'datetime'
+        },
+
+        yAxis: {
+            title: {
+                text: null
+            }
+        },
+
+        tooltip: {
+            crosshairs: true,
+            shared: true,
+            valueSuffix: '°C'
+        },
+
+        legend: {
+        },
+
+        series: [{
+            name: 'Temperature',
+            data: averages,
+            zIndex: 1,
+            marker: {
+                fillColor: 'white',
+                lineWidth: 2,
+                lineColor: Highcharts.getOptions().colors[0]
+            }
+        }]
+    });
 }
