@@ -17,6 +17,30 @@ body {
 .container .form-group form {
     display: inline-grid;
 }
+.container .form-group form label {
+    background-color: lightgrey;
+    border-top: 2px solid lightgrey;
+    border-right: 2px solid #848484;
+    border-bottom: 2px solid #848484;
+    border-left: 2px solid lightgrey;
+    margin-right: 10px;
+    padding: 1px 7px;
+    color: black;
+}
+.container .form-group form label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.container .form-group form div:nth-child(1) {
+    margin-top: 30px;
+}
+.container .form-group form div:nth-child(2) {
+    margin-top: 14px;
+    text-align: left;
+}
 .container .form-group form input {
     background-color: #f1f3fb;
     padding: 5px;
@@ -24,6 +48,10 @@ body {
 }
 .container .form-group form button {
     background-color: lightgrey;
+}
+.container .form-group form label input[type="radio"] {
+    vertical-align: middle;
+    margin: 0px;
 }
 .daily {
     display: inline-block;
@@ -41,6 +69,11 @@ body {
 }
 #mainBox {
     width: 100%;
+}
+#diagram {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto
 }
 .header-day {
     margin: 25px auto 0;

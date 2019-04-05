@@ -17,7 +17,7 @@ if (button)
     }, false);
 
 for (radio of radios) {
-    radio.addEventListener('change', function() {
+    radio.addEventListener('click', function() {
         getWeather(this.value);
     }, false);
 }
@@ -38,13 +38,14 @@ function getWeather(radioValue) {
 
 const renders = {
     weather: {
+        method: "weather",
         fn: function (data) {
-            header.innerHTML = `<h1>Today's weather in ${data.name}, ${data.country}</h1>`;
+            header.innerHTML = `<h1>Today's weather in ${data.name}, ${data.sys.country}</h1>`;
             renderDailyTable(data);
-        },
-        method: "weather"
+        }
     },
     forecast: {
+        method: "forecast",
         fn: function (data) {
             header.innerHTML = `<h1>Forecasts weather in ${data.city.name}, ${data.city.country}</h1>`;
             for (const [index, item] of data.list.entries()) {
@@ -52,21 +53,18 @@ const renders = {
                     renderWeekTable(index, item, midnightDate(item.dt) !== midnightDate(data.list[+index + 1].dt));
                 }
             }
-        },
-        method: "forecast"
+        }
     },
     diagram: {
+        method: "forecast",
         fn: function (data) {
-            let arr = [], i=0;
-            for (const [index, item] of data.list.entries()) {
-                if (data.list[+index + 1] !== undefined)
-                if (!index || midnightDate(item.dt) !== midnightDate(data.list[+index + 1].dt))
-                    arr[i++] = [parseInt(item.dt+'000'), item.main.temp];
-            }
-            mainBox.innerHTML=`<div id="diagriam" style="min-width: 310px; height: 400px; margin: 0 auto"></div>`;
-            setHighcharts(arr);
-        },
-        method: "forecast"
+            header.innerHTML = `<h1>Forecast temperature chart in ${data.city.name}, ${data.city.country}</h1>`;
+            mainBox.innerHTML=`<div id="diagram"></div>`;
+            const arr = data.list.map(({ dt, main }) => {
+                return [parseInt(dt+'000'), main.temp];
+            });
+            renderHighcharts(arr);
+        }
     }
 };
 
@@ -114,32 +112,18 @@ let createHeaderOfDay = data => {
     return `<h2>${data.dt_txt.split(" ")[0]}</h2>`;
 }
 
-function setHighcharts(averages) {
+function renderHighcharts(averages) {
     Highcharts.chart('diagram', {
-
-        title: {
-            text: 'July temperatures'
-        },
-
-        xAxis: {
-            type: 'datetime'
-        },
-
+        title: { text: 'Temperatures' },
+        xAxis: { type: 'datetime' },
         yAxis: {
-            title: {
-                text: null
-            }
+            title: { text: "temperatures" }
         },
-
         tooltip: {
             crosshairs: true,
             shared: true,
             valueSuffix: '°C'
         },
-
-        legend: {
-        },
-
         series: [{
             name: 'Temperature',
             data: averages,
