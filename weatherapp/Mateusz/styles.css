@@ -86,14 +86,25 @@ h1, .box {
 }
 
 .search-icon {
-    opacity: .7;
     margin-top: -1px;
+    opacity: .7;
     cursor: text;
-    height: 21px;
-    width: 20px;
     padding-right: 10px;
-    background: url('./search-icon.svg') center center / cover;
     flex-shrink: 0;
+    overflow: hidden;
+}
+
+.search-icon, .search-icon svg {
+    width: 20px;
+    height: 21px;
+}
+
+.search-icon svg {
+    pointer-events: none;
+}
+
+.search-icon g {
+    transform: scale(1.6);
 }
 
 .search-icon.disabled {
@@ -232,6 +243,15 @@ h1, .box {
 
 .forecast-humidity {
     opacity: .7;
+}
+
+.forecast-chart-wrapper {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    min-width: 0;
+    overflow: hidden;
+    animation: appear .4s ease-out;
 }
 
 .time {

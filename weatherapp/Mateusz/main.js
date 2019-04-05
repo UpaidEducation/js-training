@@ -39,6 +39,76 @@ const details = [
     { name: 'Sunset at', value: 'sys.sunset' }
 ];
 
+function getChartConfig(averages, ranges) {
+    return {
+        chart: {
+            backgroundColor: '#599bfd',
+            height: 400
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            type: 'datetime',
+            lineColor: '#fff',
+            labels: {
+                style: {
+                    color: '#fff'
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: null
+            },
+            gridLineColor: '#85b6ff',
+            labels: {
+                style: {
+                    color: '#fff'
+                },
+                formatter: function () {
+                    return this.value + '°C'
+                }
+            }
+        },
+        tooltip: {
+            crosshairs: true,
+            shared: true,
+            valueSuffix: '°C'
+        },
+        legend: {
+            enabled: false
+        },
+        series: [
+            {
+                name: 'Temperature',
+                data: averages,
+                zIndex: 1,
+                color: '#ddd',
+                marker: {
+                    fillColor: 'white',
+                    lineWidth: 2,
+                    lineColor: '#fff'
+                }
+            },
+            {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: '#7cb1ff',
+                fillOpacity: 0.8,
+                zIndex: 0,
+                marker: { enabled: false }
+            }
+        ],
+        credits: {
+            enabled: false
+        }
+    };
+}
+
 // Core
 function submit(event) {
     event.preventDefault();
@@ -115,6 +185,8 @@ function handleForecastSuccess(data) {
 
     const titleEl = createTitleElement(data.city.name, data.city.country);
 
+    const chart = createForecastChart(data.list);
+
     const list = data.list.map(({ main, weather, dt, wind }) => {
         return { main, weather: weather[0], date: new Date(dt * 1000), wind }
     });
@@ -143,8 +215,8 @@ function handleForecastSuccess(data) {
         mainEl.appendChild(itemEl);
     });
 
-    contentEl.append(titleEl, mainEl);
-
+    contentEl.append(titleEl, chart.wrapper, mainEl);
+    chart.element.reflow();
 }
 
 function handleError(err) {
@@ -303,6 +375,17 @@ function createForecastInfoElement(forecast) {
 
     infoEl.append(firstRow, secondRow);
     return infoEl;
+}
+
+function createForecastChart(list) {
+    const averages = list.map(item => [item.dt * 1000, kelvinToCelsius(item.main.temp)]);
+    const ranges = list.map(item => [item.dt * 1000, kelvinToCelsius(item.main.temp_min), kelvinToCelsius(item.main.temp_max)]);
+
+    const chartWrapper = document.createElement('div');
+    chartWrapper.classList.add('forecast-chart-wrapper');
+    const myChart = Highcharts.chart(chartWrapper, getChartConfig(averages, ranges));
+
+    return { wrapper: chartWrapper, element: myChart };
 }
 
 // Utils
