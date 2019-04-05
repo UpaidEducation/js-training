@@ -3,6 +3,13 @@ body {
     background: #333;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    overflow-y: scroll;
+}
+
+h2 {
+    margin: 0 0 20px;
+    animation: appear .4s ease-out;
+    user-select: none;
 }
 
 * {
@@ -15,34 +22,117 @@ body {
     align-items: center;
 }
 
-.box {
+h1 {
+    user-select: none;
+}
+
+h1, .box {
     margin: 40px auto 0;
     max-width: 1000px;
+}
+
+.box {
+    margin-top: 20px;
     border-radius: 4px;
     border: 1px solid #599bfd;
     background: #599bfd;
 }
 
 .header {
+    position: sticky;
+    top: 0;
     align-items: center;
-    color: white;
     background: #599bfd;
-    height: 40px;
     padding: 0 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.search {
+    padding-left: 10px;
+    color: white;
+    height: 40px;
     font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    background: none;
+    border: 0;
     margin-right: 10px;
+    font-size: 18px;
+    flex: 1;
+    min-width: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.refresh {
+.search::placeholder {
+    color: white;
+    opacity: .7;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.search:focus {
+    outline: 0;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
+}
+
+.search-icon {
+    margin-top: -1px;
+    opacity: .7;
+    cursor: text;
+    padding-right: 10px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.search-icon, .search-icon svg {
+    width: 20px;
+    height: 21px;
+}
+
+.search-icon svg {
+    pointer-events: none;
+}
+
+.search-icon g {
+    transform: scale(1.6);
+}
+
+.search-icon.disabled {
+    cursor: default;
+}
+
+.search-icon.has-value {
+    opacity: 1;
+}
+
+.mode-switcher {
+    display: flex;
+}
+
+.header .mode-switcher button:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.header .mode-switcher button:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.header .mode-switcher button.active {
+    box-shadow: 0 0 4px 1px blue;
+}
+
+.header button {
+    min-width: 79px;
     user-select: none;
     color: white;
     background: rgb(126, 178, 255);
@@ -50,25 +140,25 @@ body {
     padding: 6px 16px;
     border-radius: 4px;
     cursor: pointer;
-    transition: filter .15s ease-out, opacity .2s ease-out;
+    transition: filter .15s ease-out, opacity .2s ease-out, box-shadow .15s ease-out;
 }
 
-.refresh:disabled {
+.header button:disabled {
     transition: none;
     cursor: default;
     opacity: .5;
 }
 
-.refresh:not(:disabled):hover {
+.header button:not(:disabled):hover {
     filter: brightness(110%);
 }
 
-.refresh:not(:disabled):active {
+.header button:not(:disabled):active {
     transition: none;
     filter: brightness(95%);
 }
 
-.refresh:not(:disabled):focus {
+.header button:not(:disabled):focus {
     outline: none;
 }
 
@@ -77,8 +167,90 @@ body {
     overflow: hidden;
 }
 
-.main {
+.main-weather {
     flex-flow: row wrap;
+    animation: appear .4s ease-out;
+}
+
+.main-forecast {
+    display: flex;
+    flex-flow: column nowrap;
+    animation: appear .4s ease-out;
+}
+
+.forecast-list-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.forecast-list-item:not(.forecast-list-header):hover {
+    background: #5f9fff;
+}
+
+.forecast-info > div > *:not(:last-child) {
+    margin-right: 4px;
+}
+
+.forecast-list-item > *:not(:last-child) {
+    margin-right: 12px;
+}
+
+.forecast-list-item img {
+    height: 40px;
+    width: 40px;
+    user-select: none;
+}
+
+.forecast-list-header {
+    font-weight: 600;
+    font-size: 16px;
+    background: #6ba6fd;
+    user-select: none;
+}
+
+.forecast-time {
+    font-size: 12px;
+    opacity: .6;
+}
+
+.forecast-info {
+    font-size: 12px;
+    margin-left: auto;
+}
+
+.forecast-info > div:first-child {
+    margin-bottom: 3px;
+}
+
+.forecast-info > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.forecast-temp {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.forecast-description {
+    opacity: .7;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+.forecast-humidity {
+    opacity: .7;
+}
+
+.forecast-chart-wrapper {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    min-width: 0;
+    overflow: hidden;
     animation: appear .4s ease-out;
 }
 
@@ -99,6 +271,7 @@ body {
 
 .weather img {
     margin-right: 10px;
+    user-select: none;
 }
 
 .temp-info {
@@ -117,6 +290,7 @@ body {
     border-bottom: 2px solid #7eb2ff;
     padding-bottom: 5px;
     margin-bottom: 5px;
+    user-select: none;
 }
 
 .details-list {

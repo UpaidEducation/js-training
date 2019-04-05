@@ -7,14 +7,31 @@
     <title>Weather App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="./styles.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
 </head>
 
 <body>
+    <h1>Weather App</h1>
     <div class="box">
-        <div class="header row">
-            <div class="title">Weather App</div>
-            <button class="refresh">Refresh</button>
-        </div>
+        <form class="header row">
+            <div class="search-bar">
+                <div class="search-icon">
+                    <svg>
+                        <g stroke-width="2" stroke="#FFFFFF" fill="none">
+                            <path d="M11.29 11.71l-4-4" />
+                            <circle cx="5" cy="5" r="4" />
+                        </g>
+                    </svg>
+                </div>
+                <input class="search" placeholder="Search..." />
+            </div>
+            <div class="mode-switcher">
+                <button class="weather-switch" type="button" disabled>Weather</button>
+                <button class="forecast-switch" type="button">Forecast</button>
+            </div>
+        </form>
         <div class="content"></div>
     </div>
     <script src="./main.js"></script>
