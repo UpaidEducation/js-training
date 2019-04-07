@@ -1,0 +1,10 @@
+.matrixInput{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    }
+
+#slider{
+min-width:50%;
+max-width:50%;
+}

@@ -8,9 +8,14 @@ var main = (function(){
     var sumButton = document.getElementById('sumButton');
     var resultNumber = document.getElementById('resultNumber');
 
-    var arrayIn = document.getElementById('arrayIn');
+    var slider = document.getElementById('slider');
     var checkButton = document.getElementById('checkButton');
     var isDiagonal = document.getElementById('isDiagonal');
+    var matrixIn = document.getElementById('matrix');
+
+    slider.addEventListener('change',function(){
+            matrixIn.innerHTML = createMatrix(slider.value);
+    });
 
     sumButton.addEventListener('click',function(){
         resultNumber.innerHTML = calculateSum(number.value);
@@ -50,5 +55,25 @@ var main = (function(){
         }
         return totalSum;
     }
+
+    function createMatrix(size=3){
+        var htmlOut = '<table>';
+        for (var i = 0; i < size; i++){
+            htmlOut += '<tr>';
+                for (var j = 0; j < size; j++){
+                    htmlOut+='<td><input class ="matrixInput" type="text" id="tab' ;
+                    htmlOut += i;
+                    htmlOut += j;
+                    htmlOut += '" value="0"></td>';
+                }
+            htmlOut += '</tr>';
+        }
+        htmlOut += '</table>';
+        console.log(htmlOut);
+    return htmlOut;
+    }
+
+    matrixIn.innerHTML = createMatrix();
+
 
 })();
