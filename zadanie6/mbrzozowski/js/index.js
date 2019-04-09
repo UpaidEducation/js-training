@@ -22,6 +22,8 @@ var main = (function(){
     });
 
     checkButton.addEventListener('click',function(){
+        var matrix = readMatrixToList(slider.value, 'tab');
+        isDiagonal.innerHTML = isMatrixDiagonal(matrix);
     });
 
     generateButton.addEventListener('click',function(){
@@ -61,7 +63,7 @@ var main = (function(){
         for (var i = 0; i < size; i++){
             htmlOut += '<tr>';
                 for (var j = 0; j < size; j++){
-                    htmlOut+='<td><input class ="matrixInput" type="text" id="tab' ;
+                    htmlOut+='<td><input class ="matrixInput" type="number" id="tab' ;
                     htmlOut += i;
                     htmlOut += j;
                     htmlOut += '" value="0"></td>';
@@ -69,8 +71,36 @@ var main = (function(){
             htmlOut += '</tr>';
         }
         htmlOut += '</table>';
-        console.log(htmlOut);
     return htmlOut;
+    }
+
+    function readMatrixToList(size, matrixIdPrefix = 'tab'){
+        var arrayOut = []
+        for (var i = 0 ; i < size ; i++){
+            var innerArray = [] ;
+            for(var j = 0 ; j < size ; j++){
+                var id = matrixIdPrefix+i+j;
+                innerArray.push(document.getElementById(id).value);
+            }
+            arrayOut.push(innerArray);
+        }
+    return arrayOut;
+    }
+
+    function isMatrixDiagonal(matrixIn){
+        try{
+        matrixIn.forEach(function(value, index, arr){
+            var rowResult = value.filter(function(innerValue, innerIndex, innerArr){
+                return ((innerValue != 0) && (index != innerIndex));
+                });
+            if (rowResult.length){
+                throw false;
+                }
+            })
+        }catch(value){
+        return value;
+        }
+        return true;
     }
 
     matrixIn.innerHTML = createMatrix();
