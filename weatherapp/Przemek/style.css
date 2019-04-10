@@ -10,24 +10,37 @@ body {
     font-size: small;
     line-height: 5px;
 }
+.container form {
+    font-size: medium;
+}
 .container .form-group {
     text-align: center;
-    margin: 20px auto 30px;
+    margin: 20px auto 45px;
 }
 .container .form-group form {
     display: inline-grid;
+    color: #5a5a5a;
 }
 .container .form-group form label {
-    background-color: lightgrey;
-    border-top: 2px solid lightgrey;
-    border-right: 2px solid #848484;
-    border-bottom: 2px solid #848484;
-    border-left: 2px solid lightgrey;
-    margin-right: 10px;
-    padding: 1px 7px;
-    color: black;
+    background-color: seashell;
+    border-top: 2px solid #ffffff;
+    border-right: 2px solid #cad1d6;
+    border-bottom: 2px solid #cad1d6;
+    border-left: 2px solid #ffffff;
+    padding: 6px 8px;
 }
-.container .form-group form label input[type="radio"] {
+input[type="radio"]:checked+label {
+    border-top: 2px solid #cad1d6;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    border-left: 2px solid #cad1d6;
+    font-weight: bold
+}
+#r1+label,
+#r2+label {
+    margin-right: 10px;
+}
+.container .form-group form input[type="radio"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -35,27 +48,28 @@ body {
     width: 0;
 }
 .container .form-group form div:nth-child(1) {
+    display: grid;
     margin-top: 30px;
 }
 .container .form-group form div:nth-child(2) {
-    margin-top: 14px;
+    margin-top: 25px;
     text-align: left;
 }
 .container .form-group form input {
-    background-color: #f1f3fb;
-    padding: 5px;
-    border: solid 1px #83848e;
+    background-color: seashell;
+    padding: 10px;
+    border-top: 2px solid #cad1d6;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    border-left: 2px solid #cad1d6;
 }
-.container .form-group form button {
-    background-color: lightgrey;
-}
-.container .form-group form label input[type="radio"] {
+.container .form-group form input[type="radio"] {
     vertical-align: middle;
     margin: 0px;
 }
 .daily {
     display: inline-block;
-    padding: 5px;
+    padding: 5px 15px;
     background-color: seashell;
     border-top: solid 1px #fddbbf;
     border-left: solid 1px #fddbbf;
@@ -70,6 +84,10 @@ body {
 #mainBox {
     width: 100%;
 }
+#preloader {
+    position: relative;
+    text-align: center;
+}
 #diagram {
     min-width: 310px;
     height: 400px;
@@ -83,7 +101,7 @@ body {
 }
 .daily-weather {
     margin: 0 auto;
-    padding: 5px;
+    padding: 11px 20px;
     width: 300px;
     background-color: seashell;
     border-top: solid 1px #fddbbf;
