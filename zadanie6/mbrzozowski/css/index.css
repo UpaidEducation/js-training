@@ -1,0 +1,17 @@
+.matrixInput{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    }
+
+#slider{
+min-width:50%;
+max-width:50%;
+}
+
+td > input[type="button"]{
+width:51px;
+height:41px;
+font-size: x-large;
+
+}

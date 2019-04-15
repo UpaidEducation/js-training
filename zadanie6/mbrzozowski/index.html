@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="css/index.css" type="text/css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Task 6</title>
+</head>
+<body>
+<div class="main">
+    <div class="inner">
+        <div>
+            <p>Create palindrom </p>
+            <input type="text" id="stringIn">
+            <input type="button" id="generate" value="convert">
+            <div id="resultString"></div>
+        </div>
+        <div>
+            <p>Partial sum </p>
+            <input type="text" id="number">
+            <input type="button" id="sumButton" value="convert">
+            <div id="resultNumber"></div>
+        </div>
+        <div>
+            <p>check diagonal </p>
+            <div>
+                <input type="range" id="slider" value="3" max="20" min="2">
+                <div id="matrix"></div>
+            </div>
+            <input type="button" id="checkButton" value="check">
+            <div id="isDiagonal"></div>
+        </div>
+    </div>
+    <div class="inner calculator">
+        <p></p>
+        <p>===========CALCULATOR===========</p>
+        <div>
+            <table class="calculator">
+                <tr>
+                    <td><input id="button-7" type="button" value="7"></td>
+                    <td><input id="button-8" type="button" value="8"></td>
+                    <td><input id="button-9" type="button" value="9"></td>
+                    <td><input id="button-%" type="button" value="%"></td>
+
+                </tr>
+                <tr>
+                    <td><input id="button-4" type="button" value="4"></td>
+                    <td><input id="button-5" type="button" value="5"></td>
+                    <td><input id="button-6" type="button" value="6"></td>
+                    <td><input id="button-*" type="button" value="*"></td>
+                </tr>
+                <tr>
+                    <td><input id="button-1" type="button" value="1"></td>
+                    <td><input id="button-2" type="button" value="2"></td>
+                    <td><input id="button-3" type="button" value="3"></td>
+                    <td><input id="button--" type="button" value="-"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="" hidden></td>
+                    <td><input id="button-0" type="button" value="0"></td>
+                    <td><input id="button-." type="button" value="."></td>
+                    <td><input id="button-+" type="button" value="+"></td>
+                    <td><input id="button-=" type="button" value="="></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script src="js/index.js"></script>
+<script src="js/calculator.js"></script>
+</html>
