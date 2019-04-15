@@ -1,14 +1,15 @@
 const key = 'c0219653061808c1de63f16fda7c8dd4';
-var placeInput = document.getElementById('place');
-var weatherFor = document.getElementById('weatherFor');
-var weather = document.getElementById('weather');
-var allInformation = document.getElementById('allInformation');
-var dataOfWeather = document.getElementsByClassName('dataOfWeather');
+const placeInput = document.getElementById('place'),
+    weatherFor = document.getElementById('weatherFor'),
+    weatherTable = document.getElementById('weather'),
+    data = document.getElementsByClassName('data')[0];
 
 function selectPlace() {
-var place = placeInput.value;
-    weatherFor.innerText = "Weather for " + place;
-    var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + place + '&appid=' + key;
+    data.style.visibility = "visible";
+    var place = placeInput.value,
+        url = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${key}`;
+
+    weatherFor.innerText = `Hourtly weather and forecasts in ${place}`;
 
     fetch(url)
         .then(
@@ -22,7 +23,7 @@ var place = placeInput.value;
                 // Examine the text in the response
                 response.json().then(function(data) {
                     console.log(data);
-                    fillTable(data);
+                    fillTable(data['list']);
                 });
             }
         )
@@ -32,33 +33,52 @@ var place = placeInput.value;
 }
 
 function KalvinToCelsius(temp) {
-    let celsius = parseInt(temp - 273.15) + '&#186' + 'C';
+    let celsius = parseInt(temp - 273.15) + '°C';
     return celsius;
 }
 
 function fillTable(data) {
-    let weatherData1 = data['weather'][0];
-    let weatherData2 = data['main'];
-    let td1 = dataOfWeather[0].getElementsByTagName('td');
-    let td2 = dataOfWeather[1].getElementsByTagName('td');
 
-    weather.innerHTML = weatherData1['main'].toUpperCase() + ' ' + getIcons(weatherData1['icon']) + ' ' + weatherData1['description'];
-    weatherFor.nextElementSibling.innerHTML = 'latitude: ' + data['coord']['lat'] + '  longitude: ' + data['coord']['lon'];
+    for (let i = 0; i < data.length; i++) {
 
-    td1[0].innerText = weatherData2['humidity'];
-    td1[1].innerText = weatherData2['pressure'];
-    td1[2].innerHTML = KalvinToCelsius(weatherData2['temp']) ;
-    td1[4].innerText = data['clouds']['all'];
+        let weatherData1 = data[i]['weather'][0];
+        let id = weatherData1['icon'];
+        let weatherData2 = data[i]['main'];
 
-    td2[0].innerHTML = KalvinToCelsius(weatherData2['temp_min']);
-    td2[1].innerHTML = KalvinToCelsius(weatherData2['temp_max']);
-    td2[2].innerText = data['wind']['deg'];
-    td2[3].innerHTML = data['wind']['speed'];
+        let date = new Date (data[i]['dt']*1000);
 
-    allInformation.innerText = JSON.stringify(data, null, 2);
+        if(i == 0 || date.getDay() !== new Date (data[i-1]['dt']*1000).getDay()) {
+            let tr = document.createElement('tr'),
+                th = document.createElement('th');
+            th.setAttribute('colspan', 2);
+
+            th.append(document.createTextNode(date.toString().slice(0,15)));
+            tr.append(th);
+            weatherTable.append(tr);
+        }
+
+        const tr = document.createElement('tr'),
+            td = document.createElement('td'),
+            td2 = document.createElement('td'),
+            p = document.createElement('p'),
+            p2 = document.createElement('p'),
+            img = document.createElement('img');
+
+        td.append(document.createTextNode(date.toString().slice(15,21)));
+        img.setAttribute('src', getIconsUrl(weatherData1['icon']));
+        td.append(img);
+        p.append(document.createTextNode(KalvinToCelsius(weatherData2['temp'].toString()) + ' ' + weatherData1['description']));
+        p2.append(document.createTextNode(data[i]['wind']['speed'] + ' m/s clouds: ' + data[i]['clouds']['all'] + '% ' + weatherData2['pressure'] + ' hPa'));
+        td2.append(p,p2);
+        tr.append(td, td2);
+
+        weatherTable.append(tr);
+
+    }
+
 }
 
-function getIcons(id) {
-    var url = '<img width = "97" src=\'http://openweathermap.org/img/w/'+ id + '.png\'/>';
+function getIconsUrl(id) {
+    var url = 'http://openweathermap.org/img/w/'+ id + '.png';
     return url;
 }

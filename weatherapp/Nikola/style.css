@@ -10,5 +10,9 @@ table, th, td {
 }
 th {
     background-color: lightgray;
+    width: 500px;
 }
 
+.data {
+    visibility: hidden;
+}
