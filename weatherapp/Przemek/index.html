@@ -8,15 +8,28 @@
 <body>
     <div class="container">
         <div class="form-group">
-            <form>
-                <input type="text" name="Miasto" id="city" placeholder="Enter The City">
-                <button type="button" id="button">Search</button>
+            <form name="form">
+                <div>
+                    <input type="text" name="city" id="city" value="London" placeholder="London">
+                </div>
+                <div>
+                    <input id="r1" type="radio" name="radios" value="weather" checked>
+                    <label for="r1">Daily</label>
+                    <input id="r2" type="radio" name="radios" value="forecast">
+                    <label for="r2">Weekly</label>
+                    <input id="r3" type="radio" name="radios" value="chart">
+                    <label for="r3">Weekly Chart</label>
+                </div>
             </form>
         </div>
         <div id="header"></div>
         <div id="mainBox"></div>
     </div>
-    <footer></footer>
+<footer></footer>
 <script src="main.js"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 </body>
 </html>
