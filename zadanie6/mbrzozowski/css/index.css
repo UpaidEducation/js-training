@@ -15,3 +15,9 @@ height:41px;
 font-size: x-large;
 
 }
+
+.dataOut{
+min-height : 90px;
+min-width : 100px;
+border :solid;
+}
