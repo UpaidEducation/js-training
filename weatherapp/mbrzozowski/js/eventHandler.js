@@ -1,36 +1,28 @@
+
 one_hour = 1000*60*60;
+var lastReadCity=null;
 
-EVT.on('saveCityData',function(data,forecast){
-    console.log(forecast);
+
+EVT.on('saveCityData',function(data){
     window.localStorage.setItem(data.name,JSON.stringify(data));
-    EVT.emit('newDataSaved',data,forecast);
 });
 
-EVT.on('newDataSaved',function(data,forecast){
-    console.log('City data', data);
-    console.log('Forecast', forecast);
-    var html = forecast ? cityWeatherForecastTemplate(data) : cityWeatherTemplate(data);
-    document.getElementById('weatherData').innerHTML = html;
-});
-
-EVT.on('drawCityWeather',function(city,forecast){
+EVT.on('drawCityWeather',function(city){
     var cityData = JSON.parse(window.localStorage.getItem(city));
-    var eventName = forecast?'getCityForecast':'getCityWeather'
-    if (cityData == null || (cityData.dt*1000+one_hour < Date.now())){
-        EVT.emit(eventName,city,forecast);
-    }else{
-        EVT.emit('newDataSaved',cityData);
-    }
+    if (cityData === null){
+        EVT.emit('getCityWeather',city);
+        cityData = JSON.parse(window.localStorage.getItem(city));
+    };
+    console.log(cityData);
+    document.getElementById('weatherData').innerHTML = cityWeatherTemplate(cityData);
 });
 
-EVT.on('getCityWeather',function(city,forecast){
-        var dataType = forecast?'forecast':'weather'
-        makeRequest(GET,
-            'https://api.openweathermap.org/data/2.5/'+dataType+'?q='+city+'&units=metric&appid='+API_KEY,
-            null,
-            null,
-            forecast);
-        }
+EVT.on('getCityWeather',function(city){
+          makeRequest(GET,
+              'https://api.openweathermap.org/data/2.5/weather?q='+city+'&units=metric&lang=pl&appid='+API_KEY,
+              null,
+              cityCallback);
+          }
 );
 
 EVT.on('customCity',function(){
@@ -40,6 +32,7 @@ EVT.on('customCity',function(){
 
 EVT.on('searchCity',function(){
     var city = document.getElementById('city').value;
-    EVT.emit('getCityWeather',city,true);
+    EVT.emit('getCityWeather',city);
+    EVT.emit('drawCityWeather',city);
 });
 

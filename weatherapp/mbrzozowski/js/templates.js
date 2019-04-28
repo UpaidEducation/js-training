@@ -1,4 +1,20 @@
-const months = [
+function customCityTemplate(){
+
+return`
+<div>
+    <input type="text" id="city">
+    <button id="searchCity">Szukaj</button>
+</div>
+`
+
+};
+
+function cityWeatherTemplate(data){
+
+const date = new Date(data.dt*1000);
+const sunrise = new Date(data.sys.sunrise*1000);
+const sunset = new Date(data.sys.sunset*1000);
+let months = [
     "Jan",
     "Feb",
     "Mar",
@@ -13,123 +29,12 @@ const months = [
     "Dec"
   ];
 
-const days = [
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat"
-];
-
-function customCityTemplate(city){
-
-var cityValue = city ? city : "";
-
-return`
-<div>
-    <input type="text" id="city" value=${cityValue}>
-    <button id="searchCity">Szukaj</button>
-</div>
-`;
-}
-
-function cityWeatherForecastTemplate(data){
-
-    function decodeDate(dt){
-        const date = new Date(dt*1000);
-
-        return{
-            hours:date.getHours(),
-            minutes:date.getMinutes(),
-            day:days[date.getDay()],
-            monthDay:date.getDate(),
-            month:months[date.getMonth()],
-            year:date.getFullYear()
-        }
-
-    }
-
-    function decodeDay(element){
-        let dayData = decodeDate(element.dt)
-        return [dayData.day,dayData.month,dayData.monthDay,dayData.year].join(" ");
-    }
-
-    function hourForecastData(element,position){
-            const date = new Date(element.dt*1000);
-            console.log(date);
-        return`
-        <div class="singleForecastData">
-            <div class="forecast forecastHour" id="forecastHour_${position}">
-                ${("0"+date.getHours()).slice(-2)}:${("0"+date.getMinutes()).slice(-2)}
-            </div>
-            <div class="forecast icon" id="icon_${position}">
-                <img src="http://openweathermap.org/img/w/${element.weather[0].icon}.png">
-            </div>
-            <div class="forecast data" id="forecastData_${position}">
-               ${element.main.temp} &#176 C ${element.weather[0].description}<br>
-               ${element.wind.speed} m/s clouds:${element.clouds.all}% ${element.main.pressure} hPa
-            </div>
-        </div>
-    `;
-    }
-
-    function isSameDay(date,nextDate){
-        let dateNow = new Date(date*1000);
-        let _nextDate = new Date(nextDate*1000);
-        return (dateNow.getDate()!= _nextDate.getDate())||(dateNow.getMonth()!= _nextDate.getMonth())
-    }
-
-    function renderForecastData(data){
-        const list = data.list;
-        var html="";
-        function render(currentValue, index, arr){
-
-            if (index===0||(isSameDay(currentValue.dt,arr[index-1].dt))){
-                html +="<tr>";
-                html += '<td class="tableCaption" id="tableCaption_'+index+'">'+decodeDay(currentValue)+"</td>";
-                 html +="</tr>";
-            }
-            html +="<tr>";
-            html += '<td class="tableData" id="tableData_'+index+'">'+hourForecastData(currentValue,index)+"</td>";
-            html += "</tr>";
-        }
-
-
-        list.forEach(render);
-
-        return html;
-    }
-
-
-return customCityTemplate(data.city.name)+
-`
-<div>
-    <div class="text" id="weatherHeader">
-    Hourly weather and forecast in ${data.city.name}, ${data.city.country}
-    </div>
-    <div>
-        <table class="forecastTable">
-            ${renderForecastData(data)}
-        </table>
-    </div>
-</div>
-`;
-}
-
-function cityWeatherTemplate(data){
-
-const date = new Date(data.dt*1000);
-const sunrise = new Date(data.sys.sunrise*1000);
-const sunset = new Date(data.sys.sunset*1000);
-
 
 return `
 <div id="weatherDiv">
     <h3>Weather in ${data.name}, ${data.sys.country}</h3>
     <div>
-        <p><img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png"> <span>${data.main.temp}  &#176 C </span>  </p>
+        <p><img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png" <span>${data.main.temp}  &#176 C </span> </p>
         <p> ${data.weather[0].main}</p>
         <p>${date.getHours()}:${date.getMinutes()} ${months[date.getMonth()+1]} ${date.getFullYear()%2000}</p>
         <table>
