@@ -1,0 +1,13 @@
+#weatherDiv{
+border: 1px solid;
+max-width: 300px;
+padding: 1px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
