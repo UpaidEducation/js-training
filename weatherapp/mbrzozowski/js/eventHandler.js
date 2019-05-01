@@ -10,29 +10,23 @@ EVT.on('newDataSaved',function(data){
     document.getElementById('weatherData').innerHTML = cityWeatherTemplate(data);
 });
 
-EVT.on('drawCityWeather',function(city){
+EVT.on('drawCityWeather',function(city,forecast=false){
     var cityData = JSON.parse(window.localStorage.getItem(city));
+    var eventName = forecast?'getCityForecast':'getCityWeather'
     if (cityData == null || (cityData.dt*1000+one_hour < Date.now())){
-        EVT.emit('getCityWeather',city);
+        EVT.emit(eventName,city);
     }else{
         EVT.emit('newDataSaved',cityData);
     }
 });
 
-EVT.on('getCityWeather',function(city){
-          makeRequest(GET,
-              'https://api.openweathermap.org/data/2.5/weather?q='+city+'&units=metric&appid='+API_KEY,
-              null,
-              null);
-          }
-);
-
-EVT.on('getCityForecast',function(city){
-          makeRequest(GET,
-              'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&units=metric&appid='+API_KEY,
-              null,
-              null);
-          }
+EVT.on('getCityWeather',function(city,forecast=false){
+        var dataType = forecast?'forecast':'weather'
+        makeRequest(GET,
+            'https://api.openweathermap.org/data/2.5/'+dataType+'?q='+city+'&units=metric&appid='+API_KEY,
+            null,
+            null);
+        }
 );
 
 EVT.on('customCity',function(){
@@ -42,7 +36,7 @@ EVT.on('customCity',function(){
 
 EVT.on('searchCity',function(){
     var city = document.getElementById('city').value;
-    EVT.emit('getCityForecast',city);
-    EVT.emit('drawCityWeather',city);
+    EVT.emit('getCityWeather',city,true);
+    EVT.emit('drawCityWeather',city,true);
 });
 
