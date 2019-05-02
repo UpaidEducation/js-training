@@ -4,17 +4,18 @@ var GET = 'GET';
 var PUT = 'PUT';
 var DELETE = 'DELETE';
 var isForecast =false;
+var dataForChart = false;
 
  var generalCallback = {
         _200:(function(data){   console.log(isForecast);
-                                EVT.emit('saveCityData',data,isForecast);}),
+                                EVT.emit('saveCityData',data,isForecast,dataForChart);}),
         _400:(function(data){alert(data.message)}),
         _401:(function(data){alert(data.message)}),
         _404:(function(data){alert(data.message)}),
         _429:(function(data){alert(data.message)}),
     };
 
-function makeRequest(method,url,body,callback,forecast){
+function makeRequest(method,url,body,callback,forecast,drawChart){
 var callback = callback;
 const http = new XMLHttpRequest();
 http.open(method,url,true)
@@ -26,6 +27,7 @@ if(!callback){
     callback = generalCallback;
 }
 isForecast = forecast;
+dataForChart = drawChart;
 http.onreadystatechange = function() {
     if (this.readyState == 4){
         console.log('status '+this.status,http);
