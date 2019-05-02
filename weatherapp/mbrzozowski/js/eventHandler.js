@@ -19,7 +19,7 @@ EVT.on('drawCityWeather',function(city,forecast){
     if (cityData == null || (cityData.dt*1000+one_hour < Date.now())){
         EVT.emit(eventName,city,forecast);
     }else{
-        EVT.emit('newDataSaved',cityData);
+        EVT.emit('newDataSaved',cityData,forecast);
     }
 });
 
@@ -40,6 +40,6 @@ EVT.on('customCity',function(){
 
 EVT.on('searchCity',function(){
     var city = document.getElementById('city').value;
-    EVT.emit('getCityWeather',city,true);
+    EVT.emit('drawCityWeather',city,true);
 });
 

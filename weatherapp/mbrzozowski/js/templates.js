@@ -58,7 +58,6 @@ function cityWeatherForecastTemplate(data){
 
     function hourForecastData(element,position){
             const date = new Date(element.dt*1000);
-            console.log(date);
         return`
         <div class="singleForecastData">
             <div class="forecast forecastHour" id="forecastHour_${position}">
@@ -103,8 +102,7 @@ function cityWeatherForecastTemplate(data){
     }
 
 
-return customCityTemplate(data.city.name)+
-`
+return`
 <div>
     <div class="text" id="weatherHeader">
     Hourly weather and forecast in ${data.city.name}, ${data.city.country}
