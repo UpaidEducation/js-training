@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="weatherapp.css" type="text/css" />
+        <script src="js/weatherapp.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id = "weather">
+            <input type = "text" id = "inputCity" placeholder="City name">
+            <input type = "button" id = "button" value = "Submit" onclick="selectCity()" >
+            <div id = "place"></div>
+            <div id = "icontemp">
+                <div id = "icon"></div>
+                <div id = "temp"></div>
+            </div>
+
+            <div id = "date"></div>
+        </div>
+        <table id = "main">
+            <tr>
+                <td>Pressure</td>
+                <td id = "pressure"></td>
+            </tr>
+            <tr>
+                <td>Humidity</td>
+                <td id = "humidity"></td>
+            </tr>
+            <tr>
+                <td>Cloudiness</td>
+                <td id = "cloudiness"></td>
+            </tr>
+            <tr>
+                <td>Wind speed</td>
+                <td id = "wind"></td>
+            </tr>
+            <tr>
+                <td>Sunrise</td>
+                <td id = "sunrise"> </td>
+            </tr>
+            <tr>
+                <td>Sunset</td>
+                <td id = "sunset"></td>
+            </tr>
+        </table>
+
+    </body>
+</html>
