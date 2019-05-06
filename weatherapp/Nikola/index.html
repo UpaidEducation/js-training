@@ -17,37 +17,16 @@
 </div>
 <div class="container center data">
     <h2 id = "weatherFor"></h2>
-    <table id="weather">
-<!--        <div id="weather"></div>-->
-<!--        <tr>-->
-<!--            <th>Humidity</th>-->
-<!--            <th>Pressure</th>-->
-<!--            <th colspan="2">Temperature</th>-->
-<!--            <th colspan="2">Wind</th>-->
-<!--            <th>Clouds</th>-->
-<!--        </tr>-->
-<!--        <tr class="dataOfWeather">-->
-<!--            <td rowspan="3"></td>-->
-<!--            <td rowspan="3"></td>-->
-<!--            <td colspan="2"></td>-->
-<!--            <td colspan="2"></td>-->
-<!--            <td rowspan="3"></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <th>min</th>-->
-<!--            <th>max</th>-->
-<!--            <th>deg</th>-->
-<!--            <th>speed</th>-->
-<!--        </tr>-->
-<!--        <tr class="dataOfWeather">-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--        </tr>-->
-
-    </table>
+    <button id="showChart" onclick="showChart()">Show Chart</button>
+    <table id="weather"></table>
 </div>
+<div class = "dataCharts">
+    <h2 id = "chartsFor"></h2>
+</div>
+<div id="chart" style="width:100%; height:400px;"></div>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
