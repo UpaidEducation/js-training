@@ -5,14 +5,36 @@
 .container {
     justify-content: center;
 }
-table, th, td {
-    border: 1px solid black;
+table, td {
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #bdbdbd;
+    font-size: small;
+    /*text-align: left;*/
 }
-th {
-    background-color: lightgray;
+.thClass {
+    background-color: #ececec;
     width: 500px;
+    border: 1px solid #bdbdbd;
+    text-align: left;
+
 }
 
 .data {
-    visibility: hidden;
+    display: none;
+}
+.dataCharts {
+    display: none;
+}
+/*#showChart {*/
+/*    float: right;*/
+/*}*/
+
+.degrees {
+    background-color: darkgrey;
+    color: white;
+    border-radius: 51%;
+    width: 59px;
+    float: left;
+    margin-left: 57px;
 }
