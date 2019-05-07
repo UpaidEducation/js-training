@@ -19,10 +19,9 @@ EVT.on('newForecastDataSaved',function(data,forecast){
 
 EVT.on('newChartDataSaved',function(data){
     console.log('chart data', data);
-    var html = chart;
-
-    document.getElementById('weatherData').innerHTML = html;
+    drawChart(data);
 });
+
 
 EVT.on('getCityWeather',function(city,forecast,drawChart){
         var cityName = forecast ? city+"_forecast":city;
