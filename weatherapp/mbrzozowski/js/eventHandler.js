@@ -18,7 +18,9 @@ EVT.on('newForecastDataSaved',function(data,forecast){
 });
 
 EVT.on('newChartDataSaved',function(data){
-    var html = "Mock chart :D";
+    console.log('chart data', data);
+    var html = chart;
+
     document.getElementById('weatherData').innerHTML = html;
 });
 
