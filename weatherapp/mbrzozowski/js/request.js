@@ -7,7 +7,7 @@ var isForecast =false;
 var dataForChart = false;
 
  var generalCallback = {
-        _200:(function(data){   console.log(isForecast);
+        _200:(function(data){   console.log('isForecast',isForecast);
                                 EVT.emit('saveCityData',data,isForecast,dataForChart);}),
         _400:(function(data){alert(data.message)}),
         _401:(function(data){alert(data.message)}),
