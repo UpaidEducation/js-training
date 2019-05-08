@@ -35,7 +35,7 @@ EVT.on('getCityWeather',function(city,forecast,drawChart){
                 null,
                 forecast,drawChart);
         }else{
-           shouldDrawChart(drawChart,cityData);
+           shouldDrawChart(drawChart,cityData,forecast);
         }
 
 });
@@ -59,8 +59,12 @@ EVT.on('weatherChart',function(){
     EVT.emit('customCity',true);
 });
 
+EVT.on('clearChart',function(){
+    document.getElementById('container').innerHTML="";
+})
 
-function shouldDrawChart(drawChart,cityData){
+
+function shouldDrawChart(drawChart,cityData,forecast){
     if (drawChart){
         EVT.emit('newChartDataSaved',cityData);
         }

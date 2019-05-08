@@ -2,7 +2,7 @@
 
 function drawChart(data){
 
-var chart = Highcharts.chart('container',prepareChartData(data));
+Highcharts.chart('container',prepareChartData(data));
 };
 
 
@@ -19,7 +19,11 @@ var chartData = {
                         var xData = [];
                         for (x in data.list){
                             var date = new Date(data.list[x].dt*1000)
-                            xData.push([('0'+date.getHours()).slice(-2),('0'+date.getMinutes()).slice(-2)].join(":"));
+                            xData.push([('0'+date.getHours()).slice(-2),('0'+date.getMinutes()).slice(-2)].join(":")
+                                        +" "+DAYS[date.getDay()]
+                                        +" "+date.getDate()
+                                        +" "+MONTHS[date.getMonth()]
+                                        );
                             }
                         return xData;
                         }()
@@ -43,15 +47,6 @@ var chartData = {
                                         for (x in data.list){
                                                 xData.push(data.list[x].main.temp)
                                             }
-                                        return xData;
-                                        }()
-                        },
-                        {
-                        data: function(){
-                                        xData = [];
-                                        for (x in data.list){
-                                            xData.push(data.list[x].main.temp_max)
-                                        }
                                         return xData;
                                         }()
                         }]

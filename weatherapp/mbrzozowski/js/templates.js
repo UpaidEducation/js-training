@@ -1,4 +1,4 @@
-const months = [
+const MONTHS = [
     "Jan",
     "Feb",
     "Mar",
@@ -13,7 +13,7 @@ const months = [
     "Dec"
   ];
 
-const days = [
+const DAYS = [
     "Sun",
     "Mon",
     "Tue",
@@ -43,9 +43,9 @@ function cityWeatherForecastTemplate(data){
         return{
             hours:date.getHours(),
             minutes:date.getMinutes(),
-            day:days[date.getDay()],
+            day:DAYS[date.getDay()],
             monthDay:date.getDate(),
-            month:months[date.getMonth()],
+            month:MONTHS[date.getMonth()],
             year:date.getFullYear()
         }
 
@@ -129,7 +129,7 @@ return `
     <div>
         <p><img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png"> <span>${data.main.temp}  &#176 C </span>  </p>
         <p> ${data.weather[0].main}</p>
-        <p>${date.getHours()}:${date.getMinutes()} ${months[date.getMonth()+1]} ${date.getFullYear()%2000}</p>
+        <p>${date.getHours()}:${date.getMinutes()} ${MONTHS[date.getMonth()+1]} ${date.getFullYear()%2000}</p>
         <table>
             <tr>
                 <td>
