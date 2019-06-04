@@ -84,4 +84,16 @@ Napisać funkcje dla pobrania zmian pogody na 5 dni w podanym mieście i wyświe
 
 - Step 3:
 
-Stworzyć wykres pogody w podanym mieście na 5 dni używając biblioteki <a href="https://www.highcharts.com/">highcharts</a>. Przykład będzie dołaczony do repo.
+Stworzyć wykres pogody w podanym mieście na 5 dni używając biblioteki <a href="https://www.highcharts.com/">highcharts</a>. Przykład będzie dołączony do repo.
+
+- Step 4:
+
+Stworzyć 3 dodatkowe wykresy(wiatr, ciśnienie, opady). Przykład będzie dołączony do repo.
+
+- Step 5:
+
+Skonfigurować funkcjonalność do wyeksportowania wykresu w formatach: PNG, JPEG, SVG, PDF. Opcji w menu do wyeksportowania powinni być rozdzielone seperatorem. Przykład będzie dołączony do repo.
+
+- Step 6:
+
+Dodać sekcje dla stworzenia mapki pogody(prędkość wiatru i kierunek wiatru) dla podanego miasta + podanek daty. <a href="https://github.com/owm-inc/VANE-intro/tree/master/apps">Przykład mapki pogody.</a>
