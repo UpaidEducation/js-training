@@ -1,0 +1,49 @@
+#weatherDiv{
+    border: 1px solid;
+    max-width: 300px;
+    padding: 1px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+.tableCaption{
+    background:#dedede;
+}
+
+.singleForecastData{
+    display:inline-flex;
+}
+
+.forecast{
+    padding:1px;
+}
+
+.forecast.icon{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.forecast.forecastHour{
+    padding-left:20px;
+}
+
+.forecast.data{
+    padding-right:20px;
+}
+
+
+.forecastTable *, .forecastTable {
+    border: 1px solid white;
+
+}
+
+
+td.tableCaption{
+    border: 1px solid black;
+}
